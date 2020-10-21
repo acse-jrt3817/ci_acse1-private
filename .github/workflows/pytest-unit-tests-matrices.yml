@@ -53,8 +53,17 @@ jobs:
         echo "::set-env name=TESTS::tests/"
 
     - name: Install dependencies
+      if: matrix.os != 'macos-latest'
       run: |
         sudo apt-get install python3-setuptools -y
+        pip3 install --upgrade pip
+        pip3 install -e .
+        pip3 install -r requirements.txt
+
+      if: matrix.os == 'macos-latest'
+      run: |
+      wget https://bitbucket.org/pypg/setuptools/raw/bootstrap/ez_setup.py -O
+      - | python
         pip3 install --upgrade pip
         pip3 install -e .
         pip3 install -r requirements.txt
